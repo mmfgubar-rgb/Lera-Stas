@@ -1,842 +1,686 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Александр & Анастасия</title>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    *{box-sizing:border-box;}
-    body{
-      margin:0;
-      font-family:'Montserrat',system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      background:#faf7f5;
-      color:#3b2d2a;
-      text-align:center;
-    }
-    a{color:inherit;text-decoration:none;}
-    .page{min-height:100vh;display:flex;flex-direction:column;}
-    .hero{
-      padding:60px 20px 40px;
-      background:radial-gradient(circle at top,#f8ede6 0,#f3e3d5 35%,#f7f0ea 70%,#faf7f5 100%);
-      position:relative;
-      overflow:hidden;
-    }
-    .hero::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background-image:url("data:image/svg+xml,%3Csvg width='160' height='160' viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M40 120 Q80 60 120 120' fill='none' stroke='%23dec6a6' stroke-width='1' stroke-linecap='round' stroke-dasharray='3 5'/%3E%3C/svg%3E");
-      opacity:.35;
-      pointer-events:none;
-    }
-    .hero-inner{
-      position:relative;
-      max-width:760px;
-      margin:0 auto;
-    }
-    .monogram{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:14px;
-      font-family:'Great Vibes',cursive;
-      font-size:38px;
-      letter-spacing:4px;
-      color:#574039;
-      margin-bottom:10px;
-    }
-    .monogram span{
-      display:inline-block;
-      padding:4px 10px;
-      border-radius:999px;
-      border:1px solid rgba(150,118,94,.4);
-      background:rgba(255,255,255,.7);
-      backdrop-filter:blur(6px);
-    }
-    .monogram-divider{
-      font-family:inherit;
-      font-size:22px;
-      opacity:.7;
-    }
-    h1{
-      margin:16px 0 6px;
-      font-family:'Great Vibes',cursive;
-      font-size:clamp(44px,10vw,80px);
-      color:#5a3e36;
-      text-shadow:0 14px 30px rgba(0,0,0,.15);
-    }
-    .hero-subtitle{
-      margin:0 0 12px;
-      font-size:15px;
-      text-transform:uppercase;
-      letter-spacing:.36em;
-      color:#8a7468;
-    }
-    .hero-date{
-      font-size:18px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      margin-bottom:6px;
-      color:#5d473f;
-    }
-    .hero-place{
-      font-size:14px;
-      text-transform:uppercase;
-      letter-spacing:.22em;
-      color:#a08779;
-      margin-bottom:22px;
-    }
-    .hero-cta{margin-top:10px;}
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:13px 32px;
-      border-radius:999px;
-      border:none;
-      cursor:pointer;
-      background:#c99f7a;
-      color:#fff;
-      font-size:14px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      box-shadow:0 12px 30px rgba(140,102,74,.35);
-      transition:.25s;
-    }
-    .btn:hover{
-      background:#b78e6a;
-      transform:translateY(-1px);
-      box-shadow:0 14px 36px rgba(140,102,74,.45);
-    }
-    .btn-outline{
-      background:transparent;
-      color:#5a3e36;
-      border:1px solid rgba(153,119,93,.55);
-      box-shadow:none;
-      margin-left:10px;
-    }
-    .btn-outline:hover{
-      background:rgba(255,255,255,.8);
-      box-shadow:0 8px 20px rgba(0,0,0,.12);
-    }
-    .hero-timing-note{
-      margin-top:26px;
-      font-size:13px;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      color:#a89487;
-    }
-    .section{
-      padding:46px 18px 40px;
-    }
-    .section-narrow{
-      max-width:760px;
-      margin:0 auto;
-    }
-    .section-title{
-      font-size:22px;
-      text-transform:uppercase;
-      letter-spacing:.32em;
-      color:#7f675b;
-      margin:0 0 20px;
-    }
-    .section-title span{
-      display:inline-block;
-      padding-bottom:6px;
-      border-bottom:1px solid rgba(201,159,122,.5);
-    }
-    .lead-text{
-      font-size:16px;
-      line-height:1.8;
-      max-width:680px;
-      margin:0 auto 12px;
-      color:#4a3a34;
-    }
-    .names-sign{
-      margin-top:24px;
-      font-family:'Great Vibes',cursive;
-      font-size:30px;
-      color:#5b4037;
-      letter-spacing:3px;
-    }
-    .timing-wrap{
-      display:grid;
-      grid-template-columns:repeat(5,minmax(0,1fr));
-      gap:8px;
-      margin-top:16px;
-    }
-    .timing-item{
-      background:#fff;
-      padding:12px 8px 14px;
-      border-radius:16px;
-      box-shadow:0 10px 28px rgba(0,0,0,.08);
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-      min-height:92px;
-    }
-    .timing-time{
-      font-size:16px;
-      font-weight:600;
-      color:#5f443a;
-      margin-bottom:6px;
-    }
-    .timing-label{
-      font-size:11px;
-      text-transform:uppercase;
-      letter-spacing:.15em;
-      color:#9b8478;
-    }
-    .location-card{
-      margin-top:10px;
-      background:#fff;
-      border-radius:20px;
-      padding:22px 20px 18px;
-      box-shadow:0 18px 40px rgba(0,0,0,.08);
-      text-align:left;
-    }
-    .location-title{
-      font-size:15px;
-      text-transform:uppercase;
-      letter-spacing:.24em;
-      color:#8b7265;
-      margin-bottom:10px;
-    }
-    .location-name{
-      font-size:18px;
-      font-weight:600;
-      color:#50362f;
-      margin-bottom:4px;
-    }
-    .location-address{
-      font-size:14px;
-      color:#7a6660;
-      margin-bottom:16px;
-    }
-    .location-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:4px;
-    }
-    .chip{
-      padding:7px 16px;
-      border-radius:999px;
-      border:1px dashed rgba(187,148,117,.7);
-      font-size:11px;
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      color:#7d6356;
-    }
-    .map-placeholder{
-      margin-top:18px;
-      border-radius:16px;
-      overflow:hidden;
-      position:relative;
-      background:linear-gradient(135deg,#f9ede2,#f2e3d8);
-      min-height:180px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:#886c5d;
-      font-size:13px;
-      text-transform:uppercase;
-      letter-spacing:.16em;
-    }
-    .map-placeholder::before{
-      content:"";
-      position:absolute;
-      inset:12px;
-      border-radius:14px;
-      border:1px dashed rgba(177,139,113,.45);
-      pointer-events:none;
-    }
-    .dress-colors{
-      display:flex;
-      justify-content:center;
-      flex-wrap:wrap;
-      gap:14px;
-      margin-top:18px;
-    }
-    .dress-color{
-      width:50px;
-      height:50px;
-      border-radius:50%;
-      box-shadow:0 8px 20px rgba(0,0,0,.08);
-      border:3px solid #f7f0ea;
-    }
-    .faq-grid{
-      display:grid;
-      grid-template-columns:repeat(2,minmax(0,1fr));
-      gap:18px;
-      margin-top:12px;
-      text-align:left;
-    }
-    .faq-item{
-      background:#fff;
-      border-radius:18px;
-      padding:16px 16px 14px;
-      box-shadow:0 14px 32px rgba(0,0,0,.06);
-    }
-    .faq-q{
-      font-size:13px;
-      font-weight:600;
-      text-transform:uppercase;
-      letter-spacing:.16em;
-      color:#8f7567;
-      margin-bottom:8px;
-    }
-    .faq-a{
-      font-size:14px;
-      color:#4b3a34;
-      line-height:1.6;
-    }
-    .faq-highlight{font-weight:600;color:#5b4037;}
-    .steps{
-      background:#fff;
-      border-radius:22px;
-      padding:24px 18px 22px;
-      box-shadow:0 20px 44px rgba(0,0,0,.09);
-      max-width:520px;
-      margin:6px auto 0;
-      text-align:left;
-    }
-    .steps-header{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:18px;
-      gap:8px;
-    }
-    .steps-title{
-      font-size:14px;
-      text-transform:uppercase;
-      letter-spacing:.2em;
-      color:#7d6457;
-    }
-    .steps-indicators{
-      display:flex;
-      gap:6px;
-    }
-    .step-dot{
-      width:20px;
-      height:20px;
-      border-radius:50%;
-      border:1px solid rgba(187,148,117,.35);
-      font-size:11px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:#a48b7a;
-      background:#f7eee7;
-    }
-    .step-dot.active{
-      background:#c99f7a;
-      color:#fff;
-      border-color:#c99f7a;
-    }
-    .step{
-      display:none;
-    }
-    .step.active{display:block;}
-    .step-label{
-      font-size:13px;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      color:#8f7567;
-      margin-bottom:10px;
-    }
-    .field{
-      margin-bottom:14px;
-    }
-    .field input{
-      width:100%;
-      padding:12px 12px;
-      border-radius:12px;
-      border:1px solid #e1d3c6;
-      font-size:14px;
-      font-family:inherit;
-      background:#fdfaf7;
-    }
-    .field input:focus{
-      outline:none;
-      border-color:#c99f7a;
-      box-shadow:0 0 0 1px rgba(201,159,122,.35);
-    }
-    .radio-group{
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-    }
-    .radio-item{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      font-size:14px;
-      color:#4c3a34;
-      cursor:pointer;
-    }
-    .radio-item input{display:none;}
-    .radio-mark{
-      width:18px;
-      height:18px;
-      border-radius:50%;
-      border:2px solid #c99f7a;
-      position:relative;
-    }
-    .radio-mark::after{
-      content:"";
-      position:absolute;
-      inset:3px;
-      border-radius:inherit;
-      background:#c99f7a;
-      transform:scale(0);
-      transition:.2s;
-    }
-    .radio-item input:checked + .radio-mark::after{transform:scale(1);}
-    .step-nav{
-      display:flex;
-      justify-content:space-between;
-      margin-top:18px;
-      gap:12px;
-    }
-    .nav-btn{
-      flex:1;
-      padding:11px 10px;
-      border-radius:999px;
-      border:1px solid rgba(187,148,117,.65);
-      background:#f9f1ea;
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:.18em;
-      cursor:pointer;
-      color:#715649;
-    }
-    .nav-btn.primary{
-      background:#c99f7a;
-      color:#fff;
-      border-color:#c99f7a;
-    }
-    .nav-btn:disabled{
-      opacity:.45;
-      cursor:default;
-    }
-    .countdown-section{
-      padding:40px 18px 50px;
-      background:#f0e4da;
-      margin-top:10px;
-    }
-    .countdown-title{
-      font-size:15px;
-      letter-spacing:.22em;
-      text-transform:uppercase;
-      color:#7d6457;
-      margin-bottom:18px;
-    }
-    .countdown{
-      display:flex;
-      justify-content:center;
-      gap:12px;
-      flex-wrap:wrap;
-    }
-    .count-item{
-      min-width:70px;
-      padding:10px 8px 12px;
-      border-radius:16px;
-      background:#fff;
-      box-shadow:0 10px 26px rgba(0,0,0,.12);
-    }
-    .count-num{
-      font-size:20px;
-      font-weight:600;
-      color:#5f453b;
-      margin-bottom:2px;
-    }
-    .count-label{
-      font-size:11px;
-      text-transform:uppercase;
-      letter-spacing:.14em;
-      color:#a18678;
-    }
-    .footer{
-      padding:22px 16px 26px;
-      font-size:13px;
-      color:#8e7566;
-    }
-    .footer-names{
-      font-family:'Great Vibes',cursive;
-      font-size:26px;
-      color:#5b4037;
-      letter-spacing:3px;
-      margin-top:4px;
-    }
-    @media (max-width:640px){
-      .timing-wrap{grid-template-columns:repeat(2,minmax(0,1fr));}
-      .faq-grid{grid-template-columns:1fr;}
-      .hero{padding-top:44px;}
-      .btn-outline{margin-top:10px;margin-left:0;}
-      .steps{padding:22px 16px 20px;}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Свадьба Валерии и Стаса | 05.09.2026</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel Standalone -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        
+        .photo-frame {
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .photo-frame::before {
+            content: '';
+            position: absolute;
+            inset: -20px;
+            background: linear-gradient(45deg, #E8DFD0, #D4A574, #E8DFD0);
+            z-index: -1;
+            border-radius: 0.5rem;
+        }
+        
+        .photo-frame img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: #D4A574;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary:hover {
+            background-color: #C19563;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+            transition: border-color 0.2s;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #D4A574;
+        }
+        
+        input.error {
+            border-color: #EF4444;
+        }
+        
+        .radio-item, .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+        
+        input[type="radio"], input[type="checkbox"] {
+            width: auto;
+            cursor: pointer;
+        }
+        
+        input[type="radio"]:disabled, input[type="checkbox"]:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        label.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        label {
+            font-family: 'Montserrat', sans-serif;
+            color: #6B5D52;
+        }
+        
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                              url('https://images.unsplash.com/photo-1621295694299-7b7a92921fe6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxydXN0aWMlMjB3ZWRkaW5nJTIwd29vZGVuJTIwdGV4dHVyZXxlbnwxfHx8fDE3NzMyMTMzMjd8MA&ixlib=rb-4.1.0&q=80&w=1080');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
 </head>
 <body>
-  <div class="page">
-    <header class="hero">
-      <div class="hero-inner">
-        <div class="monogram">
-          <span>А</span>
-          <span class="monogram-divider">|</span>
-          <span>А</span>
-        </div>
-        <h1>Александр &amp; Анастасия</h1>
-        <p class="hero-subtitle">приглашение на нашу свадьбу</p>
-        <div class="hero-date">26 июня 2026</div>
-        <div class="hero-place">усадьба «Millenium» • брестский район, д. прилуки</div>
-        <div class="hero-cta">
-          <button class="btn" id="openInvite">Открыть приглашение</button>
-          <button class="btn btn-outline" id="scrollToForm">Анкета гостя</button>
-        </div>
-        <div class="hero-timing-note">день, который мы очень ждём, и который хотим разделить с вами</div>
-      </div>
-    </header>
+    <div id="root"></div>
 
-    <main>
-      <section class="section" id="invite">
-        <div class="section-narrow">
-          <h2 class="section-title"><span>Дорогие друзья!</span></h2>
-          <p class="lead-text">
-            В нашей жизни предстоят счастливые перемены! 26 июня 2026 года состоится наш самый главный праздник – наша свадьба.
-            Мы очень хотим, чтобы в этот день рядом были самые близкие и дорогие нашему сердцу люди.
-          </p>
-          <p class="lead-text">
-            Будем рады разделить с вами этот чудесный день, наполненный теплом, улыбками и любовью.
-          </p>
-          <div class="names-sign">Александр и Анастасия</div>
-        </div>
-      </section>
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
 
-      <section class="section">
-        <div class="section-narrow">
-          <h2 class="section-title"><span>Timing</span></h2>
-          <div class="timing-wrap">
-            <div class="timing-item">
-              <div class="timing-time">14:00</div>
-              <div class="timing-label">сбор гостей</div>
-            </div>
-            <div class="timing-item">
-              <div class="timing-time">14:30</div>
-              <div class="timing-label">сбор гостей</div>
-            </div>
-            <div class="timing-item">
-              <div class="timing-time">15:00</div>
-              <div class="timing-label">свадебная церемония</div>
-            </div>
-            <div class="timing-item">
-              <div class="timing-time">23:00</div>
-              <div class="timing-label">праздничный банкет</div>
-            </div>
-            <div class="timing-item">
-              <div class="timing-time">...</div>
-              <div class="timing-label">окончание мероприятия</div>
-            </div>
-          </div>
-        </div>
-      </section>
+        // Hero Section Component
+        function HeroSection({ onRSVPClick }) {
+            return (
+                <section className="hero-bg relative min-h-screen flex items-center justify-center">
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F5F1E8]"></div>
+                    
+                    <div className="relative z-10 text-center px-4 py-12 max-w-4xl mx-auto animate-fade-in">
+                        <svg className="w-12 h-12 mx-auto mb-6" fill="#D4A574" viewBox="0 0 24 24">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                        
+                        <h1 className="mb-6 text-white" style={{ fontFamily: "'Great Vibes', cursive", fontSize: 'clamp(3rem, 8vw, 5rem)', lineHeight: '1.2' }}>
+                            Валерия & Стас
+                        </h1>
+                        
+                        <p className="text-lg md:text-2xl mb-8 text-white" style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 300, letterSpacing: '0.05em' }}>
+                            Приглашаем вас разделить с нами<br className="hidden md:block" /> самый важный день нашей жизни
+                        </p>
+                        
+                        <div className="mb-10">
+                            <p className="text-5xl md:text-6xl font-light text-white mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
+                                05.09.2026
+                            </p>
+                        </div>
+                        
+                        <button onClick={onRSVPClick} className="btn-primary hover-scale">
+                            ПОДТВЕРДИТЬ ПРИСУТСТВИЕ
+                        </button>
+                    </div>
+                </section>
+            );
+        }
 
-      <section class="section">
-        <div class="section-narrow">
-          <h2 class="section-title"><span>Location</span></h2>
-          <div class="location-card">
-            <div class="location-title">место проведения</div>
-            <div class="location-name">Усадьба «Millenium»</div>
-            <div class="location-address">Брестский район, д. Прилуки, ул. Песчаная 51</div>
-            <p class="faq-a">
-              На территории усадьбы есть парковка, поэтому вы можете спокойно приехать на своём автомобиле.
-            </p>
-            <div class="location-actions">
-              <div class="chip">парковка на территории</div>
-              <div class="chip">загородная атмосфера</div>
-            </div>
-            <div class="map-placeholder">
-              карта усадьбы «Millenium»
-            </div>
-          </div>
-        </div>
-      </section>
+        // Countdown Timer Component
+        function CountdownTimer() {
+            const [timeLeft, setTimeLeft] = useState({ months: 0, weeks: 0, days: 0, hours: 0 });
 
-      <section class="section">
-        <div class="section-narrow">
-          <h2 class="section-title"><span>Dress-code</span></h2>
-          <p class="lead-text">
-            Будем рады, если при выборе нарядов вы придержитесь этой светлой, нежной палитры.
-          </p>
-          <div class="dress-colors">
-            <div class="dress-color" style="background:#f4e7da;"></div>
-            <div class="dress-color" style="background:#dcc0a1;"></div>
-            <div class="dress-color" style="background:#b79b8a;"></div>
-            <div class="dress-color" style="background:#8c6c57;"></div>
-            <div class="dress-color" style="background:#e6efe9;"></div>
-          </div>
-        </div>
-      </section>
+            useEffect(() => {
+                const calculateTimeLeft = () => {
+                    const weddingDate = new Date('2026-09-05T14:00:00');
+                    const now = new Date();
+                    const difference = weddingDate.getTime() - now.getTime();
 
-      <section class="section">
-        <div class="section-narrow">
-          <h2 class="section-title"><span>Ответы на ваши вопросы</span></h2>
-          <div class="faq-grid">
-            <div class="faq-item">
-              <div class="faq-q">какие подарки предпочтительны?</div>
-              <div class="faq-a">
-                Мы очень ценим вашу любовь и внимание. Чтобы подарок не оказался лишним,
-                нам будет приятно, если вы внесёте вклад в бюджет нашей молодой семьи.
-              </div>
-            </div>
-            <div class="faq-item">
-              <div class="faq-q">с кем можно связаться по вопросам?</div>
-              <div class="faq-a">
-                <span class="faq-highlight">Жених Александр</span> — +375 33 822 88 00<br>
-                <span class="faq-highlight">Невеста Анастасия</span> — +375 33 902 03 00
-              </div>
-            </div>
-            <div class="faq-item">
-              <div class="faq-q">можно ли приехать на своём авто?</div>
-              <div class="faq-a">
-                Да, на территории усадьбы имеется парковка для гостей. Вы можете приехать на
-                своем автомобиле и комфортно разместить его на парковке.
-              </div>
-            </div>
-            <div class="faq-item">
-              <div class="faq-q">нужен ли дресс-код?</div>
-              <div class="faq-a">
-                Строгих правил нет, главное — ваше хорошее настроение. Но мы будем рады,
-                если вы поддержите предложенную нами мягкую пастельную палитру.
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+                    if (difference > 0) {
+                        const totalDays = Math.floor(difference / (1000 * 60 * 60 * 24));
+                        const months = Math.floor(totalDays / 30);
+                        const remainingDaysAfterMonths = totalDays - (months * 30);
+                        const weeks = Math.floor(remainingDaysAfterMonths / 7);
+                        const days = remainingDaysAfterMonths % 7;
+                        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
 
-      <section class="section" id="guestForm">
-        <div class="section-narrow">
-          <h2 class="section-title"><span>Анкета гостя</span></h2>
-          <p class="lead-text">
-            Просим вас подтвердить своё присутствие и ответить на несколько вопросов до 3 марта,
-            чтобы мы смогли лучше подготовиться к нашему дню.
-          </p>
-          <form class="steps" id="guestSurvey">
-            <div class="steps-header">
-              <div class="steps-title">заполните, пожалуйста, анкету</div>
-              <div class="steps-indicators">
-                <div class="step-dot active" data-step-dot="0">1</div>
-                <div class="step-dot" data-step-dot="1">2</div>
-                <div class="step-dot" data-step-dot="2">3</div>
-                <div class="step-dot" data-step-dot="3">4</div>
-                <div class="step-dot" data-step-dot="4">5</div>
-              </div>
-            </div>
+                        setTimeLeft({ months, weeks, days, hours });
+                    }
+                };
 
-            <div class="step active" data-step="0">
-              <div class="step-label">шаг 1 из 5</div>
-              <div class="field">
-                <label class="step-label" style="margin-bottom:6px;">ваше имя и фамилия</label>
-                <input type="text" name="fullName" placeholder="Имя и фамилия" required>
-              </div>
-            </div>
+                calculateTimeLeft();
+                const timer = setInterval(calculateTimeLeft, 1000 * 60 * 60);
+                return () => clearInterval(timer);
+            }, []);
 
-            <div class="step" data-step="1">
-              <div class="step-label">шаг 2 из 5</div>
-              <div class="field">
-                <label class="step-label" style="margin-bottom:6px;">ваш контактный номер</label>
-                <input type="text" name="phone" placeholder="+375..." required>
-              </div>
-            </div>
+            const timeUnits = [
+                { value: timeLeft.months, label: timeLeft.months === 1 ? 'месяц' : timeLeft.months < 5 ? 'месяца' : 'месяцев' },
+                { value: timeLeft.weeks, label: timeLeft.weeks === 1 ? 'неделя' : timeLeft.weeks < 5 ? 'недели' : 'недель' },
+                { value: timeLeft.days, label: timeLeft.days === 1 ? 'день' : timeLeft.days < 5 ? 'дня' : 'дней' },
+                { value: timeLeft.hours, label: timeLeft.hours === 1 ? 'час' : timeLeft.hours < 5 ? 'часа' : 'часов' }
+            ];
 
-            <div class="step" data-step="2">
-              <div class="step-label">шаг 3 из 5</div>
-              <div class="field">
-                <label class="step-label" style="margin-bottom:10px;">планируете ли вы присутствовать на свадьбе?</label>
-                <div class="radio-group">
-                  <label class="radio-item">
-                    <input type="radio" name="attendance" value="yes" required>
-                    <span class="radio-mark"></span>
-                    <span>Да, буду на свадьбе</span>
-                  </label>
-                  <label class="radio-item">
-                    <input type="radio" name="attendance" value="no">
-                    <span class="radio-mark"></span>
-                    <span>К сожалению, не смогу присутствовать</span>
-                  </label>
+            return (
+                <section className="py-16 md:py-24 bg-[#F5F1E8]">
+                    <div className="max-w-6xl mx-auto px-4">
+                        <h2 className="text-center mb-12 text-2xl md:text-3xl" style={{ fontFamily: "'Playfair Display', serif", color: '#6B5D52' }}>
+                            До нашей свадьбы осталось:
+                        </h2>
+                        
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            {timeUnits.map((unit, index) => (
+                                <div key={index} className="bg-white rounded-lg p-6 md:p-8 shadow-lg text-center" style={{ border: '2px solid #E8DFD0' }}>
+                                    <div className="text-4xl md:text-5xl font-bold mb-2" style={{ fontFamily: "'Playfair Display', serif", color: '#D4A574' }}>
+                                        {String(unit.value).padStart(2, '0')}
+                                    </div>
+                                    <div className="text-sm md:text-base" style={{ fontFamily: "'Montserrat', sans-serif", color: '#8B7D6B', textTransform: 'lowercase' }}>
+                                        {unit.label}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        // Photo Section Component
+        function PhotoSection() {
+            return (
+                <section className="py-16 md:py-24 bg-white">
+                    <div className="max-w-4xl mx-auto px-4">
+                        <div className="text-center mb-12">
+                            <h2 className="text-3xl md:text-4xl mb-4" style={{ fontFamily: "'Playfair Display', serif", color: '#6B5D52' }}>
+                                Валерия & Стас
+                            </h2>
+                            <div className="w-20 h-1 bg-[#D4A574] mx-auto"></div>
+                        </div>
+                        
+                        <div className="flex justify-center">
+                            <div className="photo-frame max-w-2xl w-full">
+                                <img 
+                                    src="photo.jpg" 
+                                    alt="Валерия и Стас" 
+                                    className="w-full h-auto object-cover"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        // Event Info Component
+        function EventInfo() {
+            return (
+                <section className="py-16 md:py-24 bg-white">
+                    <div className="max-w-6xl mx-auto px-4">
+                        <h2 className="text-center mb-12 text-3xl md:text-4xl" style={{ fontFamily: "'Playfair Display', serif", color: '#6B5D52' }}>
+                            Информация о событии
+                        </h2>
+                        
+                        <div className="grid md:grid-cols-3 gap-8 mb-12">
+                            <div className="text-center p-6">
+                                <svg className="w-12 h-12 mx-auto mb-4" stroke="#D4A574" fill="none" viewBox="0 0 24 24">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" strokeWidth="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6" strokeWidth="2"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6" strokeWidth="2"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10" strokeWidth="2"></line>
+                                </svg>
+                                <h3 className="text-lg mb-2" style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 600, color: '#6B5D52' }}>
+                                    Дата
+                                </h3>
+                                <p className="text-2xl" style={{ fontFamily: "'Playfair Display', serif", color: '#8B7D6B' }}>
+                                    5 сентября 2026
+                                </p>
+                            </div>
+
+                            <div className="text-center p-6">
+                                <svg className="w-12 h-12 mx-auto mb-4" stroke="#D4A574" fill="none" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10" strokeWidth="2"></circle>
+                                    <polyline points="12 6 12 12 16 14" strokeWidth="2"></polyline>
+                                </svg>
+                                <h3 className="text-lg mb-2" style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 600, color: '#6B5D52' }}>
+                                    Начало
+                                </h3>
+                                <p className="text-2xl" style={{ fontFamily: "'Playfair Display', serif", color: '#8B7D6B' }}>
+                                    14:00
+                                </p>
+                            </div>
+
+                            <div className="text-center p-6">
+                                <svg className="w-12 h-12 mx-auto mb-4" stroke="#D4A574" fill="none" viewBox="0 0 24 24">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" strokeWidth="2"></path>
+                                    <circle cx="12" cy="10" r="3" strokeWidth="2"></circle>
+                                </svg>
+                                <h3 className="text-lg mb-2" style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 600, color: '#6B5D52' }}>
+                                    Место
+                                </h3>
+                                <p className="text-xl mb-1" style={{ fontFamily: "'Playfair Display', serif", color: '#8B7D6B' }}>
+                                    Ресторан "Дом Палешука"
+                                </p>
+                                <p className="text-sm" style={{ fontFamily: "'Montserrat', sans-serif", color: '#A89885' }}>
+                                    аг. Лясковичи
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="rounded-lg overflow-hidden shadow-xl" style={{ border: '3px solid #E8DFD0' }}>
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2434.123456789!2d28.123456!3d52.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDA3JzI0LjQiTiAyOMKwMDcnMjQuNCJF!5e0!3m2!1sru!2sby!4v1234567890123!5m2!1sru!2sby"
+                                width="100%"
+                                height="400"
+                                style={{ border: 0 }}
+                                allowFullScreen
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                                title="Карта места проведения"
+                            ></iframe>
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        // Dress Code Component
+        function DressCode() {
+            const colors = [
+                { name: 'Бежевый', hex: '#E8D5B7' },
+                { name: 'Молочный', hex: '#F5F1E8' },
+                { name: 'Оливковый', hex: '#A8AE8C' },
+                { name: 'Пыльно-розовый', hex: '#D4A5A5' },
+                { name: 'Коричневый', hex: '#8B7355' },
+                { name: 'Терракотовый', hex: '#C17B5B' }
+            ];
+
+            return (
+                <section className="py-16 md:py-24 bg-[#F5F1E8]">
+                    <div className="max-w-6xl mx-auto px-4">
+                        <h2 className="text-center mb-4 text-3xl md:text-4xl" style={{ fontFamily: "'Playfair Display', serif", color: '#6B5D52' }}>
+                            Дресс-код
+                        </h2>
+                        
+                        <p className="text-center mb-12 text-base md:text-lg" style={{ fontFamily: "'Montserrat', sans-serif", color: '#8B7D6B' }}>
+                            Мы будем рады, если вы поддержите цветовую гамму нашей свадьбы
+                        </p>
+
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8">
+                            {colors.map((color, index) => (
+                                <div key={index} className="flex flex-col items-center">
+                                    <div
+                                        className="w-20 h-20 md:w-24 md:h-24 rounded-full mb-3 shadow-lg"
+                                        style={{
+                                            backgroundColor: color.hex,
+                                            border: '3px solid white',
+                                            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(107, 93, 82, 0.1)'
+                                        }}
+                                    ></div>
+                                    <p className="text-xs md:text-sm text-center" style={{ fontFamily: "'Montserrat', sans-serif", color: '#6B5D52' }}>
+                                        {color.name}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        // RSVP Form Component
+        function RSVPForm() {
+            const [formData, setFormData] = useState({
+                name: '',
+                attending: '',
+                withFamily: '',
+                guestCount: '',
+                alcoholPreferences: [],
+                wishes: ''
+            });
+            
+            const [errors, setErrors] = useState({ name: false });
+            const [submitted, setSubmitted] = useState(false);
+
+            const alcoholOptions = [
+                'Красное вино',
+                'Белое вино',
+                'Шампанское',
+                'Виски',
+                'Водка',
+                'Не пью'
+            ];
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                
+                if (!formData.name.trim()) {
+                    setErrors({ name: true });
+                    return;
+                }
+
+                // Отправка данных в Google Таблицу
+                const sendToGoogleSheets = async () => {
+                    const scriptURL = 'https://script.google.com/macros/s/AKfycby_zcBgI5ZiHHnsKUg-r4bRtV-M3ExWZHlRmN7NlafVhkABJCbVYJcSE61gPjbQ7BNZiQ/exec';
+                    
+                    const dataToSend = {
+                        timestamp: new Date().toLocaleString('ru-RU', { 
+                            timeZone: 'Europe/Minsk',
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        }),
+                        name: formData.name,
+                        attending: formData.attending === 'yes' ? 'Приду' : 'Не приду',
+                        withFamily: formData.attending === 'yes' 
+                            ? (formData.withFamily === 'alone' ? 'Один/одна' : 'С семьей')
+                            : '-',
+                        guestCount: formData.withFamily === 'family' ? formData.guestCount : '-',
+                        alcoholPreferences: formData.attending === 'yes' 
+                            ? (formData.alcoholPreferences.length > 0 ? formData.alcoholPreferences.join(', ') : '-')
+                            : '-',
+                        wishes: formData.wishes || '-'
+                    };
+
+                    try {
+                        const response = await fetch(scriptURL, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(dataToSend)
+                        });
+                        
+                        console.log('Данные отправлены в Google Таблицу');
+                    } catch (error) {
+                        console.error('Ошибка отправки:', error);
+                    }
+                };
+
+                sendToGoogleSheets();
+                
+                console.log('Form submitted:', formData);
+                setSubmitted(true);
+            };
+
+            const toggleAlcoholPreference = (option) => {
+                setFormData(prev => ({
+                    ...prev,
+                    alcoholPreferences: prev.alcoholPreferences.includes(option)
+                        ? prev.alcoholPreferences.filter(item => item !== option)
+                        : [...prev.alcoholPreferences, option]
+                }));
+            };
+
+if (submitted) {
+    const isAttending = formData.attending === 'yes';
+
+    return (
+        <section id="rsvp" className="py-16 md:py-24 bg-white">
+            <div className="max-w-2xl mx-auto px-4">
+                <div className="text-center p-8 md:p-12 bg-[#F5F1E8] rounded-lg shadow-lg animate-fade-in">
+                    <svg className="w-16 h-16 mx-auto mb-6" fill="none" stroke="#7BA05B" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+
+                    <h2 className="text-2xl md:text-3xl mb-4" style={{ fontFamily: "'Playfair Display', serif", color: '#6B5D52' }}>
+                        Спасибо!
+                    </h2>
+
+                    <p className="text-base md:text-lg" style={{ fontFamily: "'Montserrat', sans-serif", color: '#8B7D6B' }}>
+                        {isAttending
+                            ? 'Мы получили ваш ответ и будем рады видеть вас на нашей свадьбе.'
+                            : 'Мы получили ваш ответ. Жаль, что Вас не будет на нашем празднике.'}
+                    </p>
                 </div>
-              </div>
             </div>
+        </section>
+    );
+}
 
-            <div class="step" data-step="3">
-              <div class="step-label">шаг 4 из 5</div>
-              <div class="field">
-                <label class="step-label" style="margin-bottom:10px;">нужен ли вам трансфер?</label>
-                <div class="radio-group">
-                  <label class="radio-item">
-                    <input type="radio" name="transfer" value="yes" required>
-                    <span class="radio-mark"></span>
-                    <span>Да, мне нужен трансфер</span>
-                  </label>
-                  <label class="radio-item">
-                    <input type="radio" name="transfer" value="no">
-                    <span class="radio-mark"></span>
-                    <span>Нет, приеду самостоятельно</span>
-                  </label>
+            return (
+                <section id="rsvp" className="py-16 md:py-24 bg-white">
+                    <div className="max-w-2xl mx-auto px-4">
+                        <div className="text-center mb-12">
+                            <svg className="w-12 h-12 mx-auto mb-4" fill="#D4A574" viewBox="0 0 24 24">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                            <h2 className="text-3xl md:text-4xl mb-4" style={{ fontFamily: "'Playfair Display', serif", color: '#6B5D52' }}>
+                                Пожалуйста, подтвердите ваше присутствие
+                            </h2>
+                        </div>
+
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            <div>
+                                <label htmlFor="name" className="text-base mb-2 block" style={{ fontFamily: "'Montserrat', sans-serif", color: '#6B5D52' }}>
+                                    Имя и фамилия *
+                                </label>
+                                <input
+                                    id="name"
+                                    type="text"
+                                    value={formData.name}
+                                    onChange={(e) => {
+                                        setFormData({ ...formData, name: e.target.value });
+                                        setErrors({ name: false });
+                                    }}
+                                    className={errors.name ? 'error' : ''}
+                                />
+                                {errors.name && (
+                                    <p className="text-red-500 text-sm mt-1">Пожалуйста, укажите имя и фамилию</p>
+                                )}
+                            </div>
+
+                            <div>
+                                <label className="text-base mb-3 block" style={{ fontFamily: "'Montserrat', sans-serif", color: '#6B5D52' }}>
+                                    Приду или не приду *
+                                </label>
+                                <div className="radio-item">
+                                    <input
+                                        type="radio"
+                                        id="yes"
+                                        name="attending"
+                                        value="yes"
+                                        checked={formData.attending === 'yes'}
+                                        onChange={(e) => setFormData({ ...formData, attending: e.target.value })}
+                                        disabled={!formData.name.trim()}
+                                    />
+                                    <label htmlFor="yes" className={!formData.name.trim() ? 'disabled' : ''}>Приду</label>
+                                </div>
+                                <div className="radio-item">
+                                    <input
+                                        type="radio"
+                                        id="no"
+                                        name="attending"
+                                        value="no"
+                                        checked={formData.attending === 'no'}
+                                        onChange={(e) => setFormData({ ...formData, attending: e.target.value })}
+                                        disabled={!formData.name.trim()}
+                                    />
+                                    <label htmlFor="no" className={!formData.name.trim() ? 'disabled' : ''}>К сожалению, не смогу прийти</label>
+                                </div>
+                            </div>
+
+                            {formData.attending === 'yes' && (
+                                <div className="space-y-6 animate-fade-in">
+                                    <div>
+                                        <label className="text-base mb-3 block" style={{ fontFamily: "'Montserrat', sans-serif", color: '#6B5D52' }}>
+                                            Вы придете один или с семьей?
+                                        </label>
+                                        <div className="radio-item">
+                                            <input
+                                                type="radio"
+                                                id="alone"
+                                                name="withFamily"
+                                                value="alone"
+                                                checked={formData.withFamily === 'alone'}
+                                                onChange={(e) => setFormData({ ...formData, withFamily: e.target.value })}
+                                            />
+                                            <label htmlFor="alone">Один / одна</label>
+                                        </div>
+                                        <div className="radio-item">
+                                            <input
+                                                type="radio"
+                                                id="family"
+                                                name="withFamily"
+                                                value="family"
+                                                checked={formData.withFamily === 'family'}
+                                                onChange={(e) => setFormData({ ...formData, withFamily: e.target.value })}
+                                            />
+                                            <label htmlFor="family">С семьей</label>
+                                        </div>
+                                    </div>
+
+                                    {formData.withFamily === 'family' && (
+                                        <div className="animate-fade-in">
+                                            <label htmlFor="guestCount" className="text-base mb-2 block" style={{ fontFamily: "'Montserrat', sans-serif", color: '#6B5D52' }}>
+                                                Сколько человек будет присутствовать?
+                                            </label>
+                                            <input
+                                                id="guestCount"
+                                                type="number"
+                                                min="1"
+                                                value={formData.guestCount}
+                                                onChange={(e) => setFormData({ ...formData, guestCount: e.target.value })}
+                                            />
+                                        </div>
+                                    )}
+
+                                    <div>
+                                        <label className="text-base mb-3 block" style={{ fontFamily: "'Montserrat', sans-serif", color: '#6B5D52' }}>
+                                            Какой алкоголь вы предпочитаете?
+                                        </label>
+                                        <div className="space-y-2">
+                                            {alcoholOptions.map((option) => (
+                                                <div key={option} className="checkbox-item">
+                                                    <input
+                                                        type="checkbox"
+                                                        id={option}
+                                                        checked={formData.alcoholPreferences.includes(option)}
+                                                        onChange={() => toggleAlcoholPreference(option)}
+                                                    />
+                                                    <label htmlFor={option}>{option}</label>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor="wishes" className="text-base mb-2 block" style={{ fontFamily: "'Montserrat', sans-serif", color: '#6B5D52' }}>
+                                            Пожелание молодоженам
+                                        </label>
+                                        <textarea
+                                            id="wishes"
+                                            value={formData.wishes}
+                                            onChange={(e) => setFormData({ ...formData, wishes: e.target.value })}
+                                            rows="4"
+                                            placeholder="Ваши пожелания..."
+                                        ></textarea>
+                                    </div>
+                                </div>
+                            )}
+
+                            <button type="submit" className="btn-primary w-full hover-scale" disabled={!formData.name.trim()}>
+                                ОТПРАВИТЬ ОТВЕТ
+                            </button>
+                        </form>
+                    </div>
+                </section>
+            );
+        }
+
+        // Main App Component
+        function App() {
+            const rsvpRef = useRef(null);
+
+            const scrollToRSVP = () => {
+                rsvpRef.current?.scrollIntoView({ behavior: 'smooth' });
+            };
+
+            return (
+                <div className="min-h-screen">
+                    <HeroSection onRSVPClick={scrollToRSVP} />
+                    <CountdownTimer />
+                    <PhotoSection />
+                    <EventInfo />
+                    <DressCode />
+                    <div ref={rsvpRef}>
+                        <RSVPForm />
+                    </div>
+                    
+                    <footer className="py-8 bg-[#6B5D52] text-center">
+                        <p className="text-white text-sm" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                            С любовью, Валерия & Стас ♥
+                        </p>
+                    </footer>
                 </div>
-              </div>
-            </div>
-
-            <div class="step" data-step="4">
-              <div class="step-label">шаг 5 из 5</div>
-              <div class="field">
-                <label class="step-label" style="margin-bottom:6px;">будут ли с вами дети?</label>
-                <input type="text" name="children" placeholder="Например: да, двое детей 4 и 7 лет / нет">
-              </div>
-            </div>
-
-            <div class="step-nav">
-              <button type="button" class="nav-btn" id="prevStep">Назад</button>
-              <button type="button" class="nav-btn primary" id="nextStep">Далее</button>
-            </div>
-          </form>
-        </div>
-      </section>
-
-      <section class="countdown-section">
-        <div class="section-narrow">
-          <div class="countdown-title">до нашей свадьбы осталось...</div>
-          <div class="countdown">
-            <div class="count-item">
-              <div class="count-num" id="cdDays">0</div>
-              <div class="count-label">дней</div>
-            </div>
-            <div class="count-item">
-              <div class="count-num" id="cdHours">0</div>
-              <div class="count-label">часов</div>
-            </div>
-            <div class="count-item">
-              <div class="count-num" id="cdMinutes">0</div>
-              <div class="count-label">минут</div>
-            </div>
-            <div class="count-item">
-              <div class="count-num" id="cdSeconds">0</div>
-              <div class="count-label">секунд</div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <div>Ждём вас!</div>
-      <div class="footer-names">Александр и Анастасия</div>
-    </footer>
-  </div>
-
-  <script>
-    // smooth scroll from hero buttons
-    const openBtn = document.getElementById('openInvite');
-    const inviteSection = document.getElementById('invite');
-    const formBtn = document.getElementById('scrollToForm');
-    const formSection = document.getElementById('guestForm');
-
-    if (openBtn && inviteSection) {
-      openBtn.addEventListener('click', () => {
-        inviteSection.scrollIntoView({behavior:'smooth'});
-      });
-    }
-    if (formBtn && formSection) {
-      formBtn.addEventListener('click', () => {
-        formSection.scrollIntoView({behavior:'smooth'});
-      });
-    }
-
-    // multi-step guest survey (front-end only)
-    const form = document.getElementById('guestSurvey');
-    const steps = Array.from(document.querySelectorAll('.step'));
-    const dots = Array.from(document.querySelectorAll('.step-dot'));
-    const prevBtn = document.getElementById('prevStep');
-    const nextBtn = document.getElementById('nextStep');
-    let currentStep = 0;
-
-    function showStep(index){
-      steps.forEach((step,i)=>{
-        step.classList.toggle('active',i===index);
-      });
-      dots.forEach((dot,i)=>{
-        dot.classList.toggle('active',i===index);
-      });
-      prevBtn.disabled = index === 0;
-      nextBtn.textContent = index === steps.length-1 ? 'Готово' : 'Далее';
-    }
-
-    function validateStep(index){
-      const step = steps[index];
-      if (!step) return true;
-      const requiredInputs = step.querySelectorAll('input[required]');
-      for (const input of requiredInputs){
-        if ((input.type === 'radio' || input.type === 'checkbox')){
-          const groupChecked = step.querySelector('input[name="'+input.name+'"]:checked');
-          if (!groupChecked) return false;
-        } else if (!input.value.trim()){
-          return false;
+            );
         }
-      }
-      return true;
-    }
 
-    if (form){
-      prevBtn.addEventListener('click', () => {
-        if (currentStep>0){
-          currentStep--;
-          showStep(currentStep);
-        }
-      });
-
-      nextBtn.addEventListener('click', () => {
-        if (!validateStep(currentStep)){
-          alert('Пожалуйста, заполните этот шаг.');
-          return;
-        }
-        if (currentStep < steps.length-1){
-          currentStep++;
-          showStep(currentStep);
-        } else {
-          alert('Спасибо! Анкета заполнена.');
-          form.reset();
-          currentStep = 0;
-          showStep(currentStep);
-        }
-      });
-    }
-
-    // countdown to wedding date (26 June 2026)
-    const targetDate = new Date('2026-06-26T14:00:00');
-    const elDays = document.getElementById('cdDays');
-    const elHours = document.getElementById('cdHours');
-    const elMin = document.getElementById('cdMinutes');
-    const elSec = document.getElementById('cdSeconds');
-
-    function updateCountdown(){
-      const now = new Date();
-      let diff = targetDate - now;
-      if (diff < 0) diff = 0;
-      const sec = Math.floor(diff / 1000);
-      const days = Math.floor(sec / 86400);
-      const hours = Math.floor((sec % 86400) / 3600);
-      const mins = Math.floor((sec % 3600) / 60);
-      const seconds = sec % 60;
-      if (elDays) elDays.textContent = String(days);
-      if (elHours) elHours.textContent = String(hours).padStart(2,'0');
-      if (elMin) elMin.textContent = String(mins).padStart(2,'0');
-      if (elSec) elSec.textContent = String(seconds).padStart(2,'0');
-    }
-    updateCountdown();
-    setInterval(updateCountdown,1000);
-  </script>
+        // Render the app
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
