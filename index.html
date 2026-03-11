@@ -120,6 +120,21 @@
             cursor: pointer;
         }
         
+        input[type="radio"]:disabled, input[type="checkbox"]:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        label.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
         label {
             font-family: 'Montserrat', sans-serif;
             color: #6B5D52;
@@ -403,6 +418,49 @@
                     return;
                 }
 
+                // Отправка данных в Google Таблицу
+                const sendToGoogleSheets = async () => {
+                    const scriptURL = 'https://script.google.com/macros/s/AKfycbxgRzOGZ1svNalo9--R9TnChYmGb56za4b02ZnnA4OM1zrT3MolKEnjaAUsuC7_L1yU/exec';
+                    
+                    const dataToSend = {
+                        timestamp: new Date().toLocaleString('ru-RU', { 
+                            timeZone: 'Europe/Minsk',
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        }),
+                        name: formData.name,
+                        attending: formData.attending === 'yes' ? 'Приду' : 'Не приду',
+                        withFamily: formData.attending === 'yes' 
+                            ? (formData.withFamily === 'alone' ? 'Один/одна' : 'С семьей')
+                            : '-',
+                        guestCount: formData.withFamily === 'family' ? formData.guestCount : '-',
+                        alcoholPreferences: formData.attending === 'yes' 
+                            ? (formData.alcoholPreferences.length > 0 ? formData.alcoholPreferences.join(', ') : '-')
+                            : '-',
+                        wishes: formData.wishes || '-'
+                    };
+
+                    try {
+                        const response = await fetch(scriptURL, {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(dataToSend)
+                        });
+                        
+                        console.log('Данные отправлены в Google Таблицу');
+                    } catch (error) {
+                        console.error('Ошибка отправки:', error);
+                    }
+                };
+
+                sendToGoogleSheets();
+                
                 console.log('Form submitted:', formData);
                 setSubmitted(true);
             };
@@ -480,8 +538,9 @@
                                         value="yes"
                                         checked={formData.attending === 'yes'}
                                         onChange={(e) => setFormData({ ...formData, attending: e.target.value })}
+                                        disabled={!formData.name.trim()}
                                     />
-                                    <label htmlFor="yes">Приду</label>
+                                    <label htmlFor="yes" className={!formData.name.trim() ? 'disabled' : ''}>Приду</label>
                                 </div>
                                 <div className="radio-item">
                                     <input
@@ -491,8 +550,9 @@
                                         value="no"
                                         checked={formData.attending === 'no'}
                                         onChange={(e) => setFormData({ ...formData, attending: e.target.value })}
+                                        disabled={!formData.name.trim()}
                                     />
-                                    <label htmlFor="no">К сожалению, не смогу прийти</label>
+                                    <label htmlFor="no" className={!formData.name.trim() ? 'disabled' : ''}>К сожалению, не смогу прийти</label>
                                 </div>
                             </div>
 
@@ -575,7 +635,7 @@
                                 </div>
                             )}
 
-                            <button type="submit" className="btn-primary w-full hover-scale">
+                            <button type="submit" className="btn-primary w-full hover-scale" disabled={!formData.name.trim()}>
                                 ОТПРАВИТЬ ОТВЕТ
                             </button>
                         </form>
