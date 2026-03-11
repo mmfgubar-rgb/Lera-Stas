@@ -474,25 +474,31 @@
                 }));
             };
 
-            if (submitted) {
-                return (
-                    <section id="rsvp" className="py-16 md:py-24 bg-white">
-                        <div className="max-w-2xl mx-auto px-4">
-                            <div className="text-center p-8 md:p-12 bg-[#F5F1E8] rounded-lg shadow-lg animate-fade-in">
-                                <svg className="w-16 h-16 mx-auto mb-6" fill="none" stroke="#7BA05B" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                                <h2 className="text-2xl md:text-3xl mb-4" style={{ fontFamily: "'Playfair Display', serif", color: '#6B5D52' }}>
-                                    Спасибо!
-                                </h2>
-                                <p className="text-base md:text-lg" style={{ fontFamily: "'Montserrat', sans-serif", color: '#8B7D6B' }}>
-                                    Мы получили ваш ответ и будем рады видеть вас на нашей свадьбе.
-                                </p>
-                            </div>
-                        </div>
-                    </section>
-                );
-            }
+if (submitted) {
+    const isAttending = formData.attending === 'yes';
+
+    return (
+        <section id="rsvp" className="py-16 md:py-24 bg-white">
+            <div className="max-w-2xl mx-auto px-4">
+                <div className="text-center p-8 md:p-12 bg-[#F5F1E8] rounded-lg shadow-lg animate-fade-in">
+                    <svg className="w-16 h-16 mx-auto mb-6" fill="none" stroke="#7BA05B" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+
+                    <h2 className="text-2xl md:text-3xl mb-4" style={{ fontFamily: "'Playfair Display', serif", color: '#6B5D52' }}>
+                        Спасибо!
+                    </h2>
+
+                    <p className="text-base md:text-lg" style={{ fontFamily: "'Montserrat', sans-serif", color: '#8B7D6B' }}>
+                        {isAttending
+                            ? 'Мы получили ваш ответ и будем рады видеть вас на нашей свадьбе.'
+                            : 'Мы получили ваш ответ. Жаль, что Вас не будет на нашем празднике.'}
+                    </p>
+                </div>
+            </div>
+        </section>
+    );
+}
 
             return (
                 <section id="rsvp" className="py-16 md:py-24 bg-white">
