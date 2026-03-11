@@ -49,6 +49,27 @@
             transform: scale(1.05);
         }
         
+        .photo-frame {
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .photo-frame::before {
+            content: '';
+            position: absolute;
+            inset: -20px;
+            background: linear-gradient(45deg, #E8DFD0, #D4A574, #E8DFD0);
+            z-index: -1;
+            border-radius: 0.5rem;
+        }
+        
+        .photo-frame img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+        }
+        
         .btn-primary {
             background-color: #D4A574;
             color: white;
@@ -203,6 +224,32 @@
                                     </div>
                                 </div>
                             ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        // Photo Section Component
+        function PhotoSection() {
+            return (
+                <section className="py-16 md:py-24 bg-white">
+                    <div className="max-w-4xl mx-auto px-4">
+                        <div className="text-center mb-12">
+                            <h2 className="text-3xl md:text-4xl mb-4" style={{ fontFamily: "'Playfair Display', serif", color: '#6B5D52' }}>
+                                Валерия & Стас
+                            </h2>
+                            <div className="w-20 h-1 bg-[#D4A574] mx-auto"></div>
+                        </div>
+                        
+                        <div className="flex justify-center">
+                            <div className="photo-frame max-w-2xl w-full">
+                                <img 
+                                    src="photo.jpg" 
+                                    alt="Валерия и Стас" 
+                                    className="w-full h-auto object-cover"
+                                />
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -549,6 +596,7 @@
                 <div className="min-h-screen">
                     <HeroSection onRSVPClick={scrollToRSVP} />
                     <CountdownTimer />
+                    <PhotoSection />
                     <EventInfo />
                     <DressCode />
                     <div ref={rsvpRef}>
