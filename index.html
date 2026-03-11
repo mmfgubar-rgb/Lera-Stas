@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Свадьба Валерии и Стаса | 05.09.2026</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel Standalone -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        
+        .btn-primary {
+            background-color: #D4A574;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary:hover {
+            background-color: #C19563;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #E5E7EB;
+            border-radius: 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+            transition: border-color 0.2s;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #D4A574;
+        }
+        
+        input.error {
+            border-color: #EF4444;
+        }
+        
+        .radio-item, .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+        
+        input[type="radio"], input[type="checkbox"] {
+            width: auto;
+            cursor: pointer;
+        }
+        
+        label {
+            font-family: 'Montserrat', sans-serif;
+            color: #6B5D52;
+        }
+        
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                              url('https://images.unsplash.com/photo-1621295694299-7b7a92921fe6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxydXN0aWMlMjB3ZWRkaW5nJTIwd29vZGVuJTIwdGV4dHVyZXxlbnwxfHx8fDE3NzMyMTMzMjd8MA&ixlib=rb-4.1.0&q=80&w=1080');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // Hero Section Component
+        function HeroSection({ onRSVPClick }) {
+            return (
+                <section className="hero-bg relative min-h-screen flex items-center justify-center">
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F5F1E8]"></div>
+                    
+                    <div className="relative z-10 text-center px-4 py-12 max-w-4xl mx-auto animate-fade-in">
+                        <svg className="w-12 h-12 mx-auto mb-6" fill="#D4A574" viewBox="0 0 24 24">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                        
+                        <h1 className="mb-6 text-white" style={{ fontFamily: "'Great Vibes', cursive", fontSize: 'clamp(3rem, 8vw, 5rem)', lineHeight: '1.2' }}>
+                            Валерия & Стас
+                        </h1>
+                        
+                        <p className="text-lg md:text-2xl mb-8 text-white" style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 300, letterSpacing: '0.05em' }}>
+                            Приглашаем вас разделить с нами<br className="hidden md:block" /> самый важный день нашей жизни
+                        </p>
+                        
+                        <div className="mb-10">
+                            <p className="text-5xl md:text-6xl font-light text-white mb-2" style={{ fontFamily: "'Playfair Display', serif" }}>
+                                05.09.2026
+                            </p>
+                        </div>
+                        
+                        <button onClick={onRSVPClick} className="btn-primary hover-scale">
+                            ПОДТВЕРДИТЬ ПРИСУТСТВИЕ
+                        </button>
+                    </div>
+                </section>
+            );
+        }
+
+        // Countdown Timer Component
+        function CountdownTimer() {
+            const [timeLeft, setTimeLeft] = useState({ months: 0, weeks: 0, days: 0, hours: 0 });
+
+            useEffect(() => {
+                const calculateTimeLeft = () => {
+                    const weddingDate = new Date('2026-09-05T14:00:00');
+                    const now = new Date();
+                    const difference = weddingDate.getTime() - now.getTime();
+
+                    if (difference > 0) {
+                        const totalDays = Math.floor(difference / (1000 * 60 * 60 * 24));
+                        const months = Math.floor(totalDays / 30);
+                        const remainingDaysAfterMonths = totalDays - (months * 30);
+                        const weeks = Math.floor(remainingDaysAfterMonths / 7);
+                        const days = remainingDaysAfterMonths % 7;
+                        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+
+                        setTimeLeft({ months, weeks, days, hours });
+                    }
+                };
+
+                calculateTimeLeft();
+                const timer = setInterval(calculateTimeLeft, 1000 * 60 * 60);
+                return () => clearInterval(timer);
+            }, []);
+
+            const timeUnits = [
+                { value: timeLeft.months, label: timeLeft.months === 1 ? 'месяц' : timeLeft.months < 5 ? 'месяца' : 'месяцев' },
+                { value: timeLeft.weeks, label: timeLeft.weeks === 1 ? 'неделя' : timeLeft.weeks < 5 ? 'недели' : 'недель' },
+                { value: timeLeft.days, label: timeLeft.days === 1 ? 'день' : timeLeft.days < 5 ? 'дня' : 'дней' },
+                { value: timeLeft.hours, label: timeLeft.hours === 1 ? 'час' : timeLeft.hours < 5 ? 'часа' : 'часов' }
+            ];
+
+            return (
+                <section className="py-16 md:py-24 bg-[#F5F1E8]">
+                    <div className="max-w-6xl mx-auto px-4">
+                        <h2 className="text-center mb-12 text-2xl md:text-3xl" style={{ fontFamily: "'Playfair Display', serif", color: '#6B5D52' }}>
+                            До нашей свадьбы осталось:
+                        </h2>
+                        
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                            {timeUnits.map((unit, index) => (
+                                <div key={index} className="bg-white rounded-lg p-6 md:p-8 shadow-lg text-center" style={{ border: '2px solid #E8DFD0' }}>
+                                    <div className="text-4xl md:text-5xl font-bold mb-2" style={{ fontFamily: "'Playfair Display', serif", color: '#D4A574' }}>
+                                        {String(unit.value).padStart(2, '0')}
+                                    </div>
+                                    <div className="text-sm md:text-base" style={{ fontFamily: "'Montserrat', sans-serif", color: '#8B7D6B', textTransform: 'lowercase' }}>
+                                        {unit.label}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        // Event Info Component
+        function EventInfo() {
+            return (
+                <section className="py-16 md:py-24 bg-white">
+                    <div className="max-w-6xl mx-auto px-4">
+                        <h2 className="text-center mb-12 text-3xl md:text-4xl" style={{ fontFamily: "'Playfair Display', serif", color: '#6B5D52' }}>
+                            Информация о событии
+                        </h2>
+                        
+                        <div className="grid md:grid-cols-3 gap-8 mb-12">
+                            <div className="text-center p-6">
+                                <svg className="w-12 h-12 mx-auto mb-4" stroke="#D4A574" fill="none" viewBox="0 0 24 24">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" strokeWidth="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6" strokeWidth="2"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6" strokeWidth="2"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10" strokeWidth="2"></line>
+                                </svg>
+                                <h3 className="text-lg mb-2" style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 600, color: '#6B5D52' }}>
+                                    Дата
+                                </h3>
+                                <p className="text-2xl" style={{ fontFamily: "'Playfair Display', serif", color: '#8B7D6B' }}>
+                                    5 сентября 2026
+                                </p>
+                            </div>
+
+                            <div className="text-center p-6">
+                                <svg className="w-12 h-12 mx-auto mb-4" stroke="#D4A574" fill="none" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10" strokeWidth="2"></circle>
+                                    <polyline points="12 6 12 12 16 14" strokeWidth="2"></polyline>
+                                </svg>
+                                <h3 className="text-lg mb-2" style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 600, color: '#6B5D52' }}>
+                                    Начало
+                                </h3>
+                                <p className="text-2xl" style={{ fontFamily: "'Playfair Display', serif", color: '#8B7D6B' }}>
+                                    14:00
+                                </p>
+                            </div>
+
+                            <div className="text-center p-6">
+                                <svg className="w-12 h-12 mx-auto mb-4" stroke="#D4A574" fill="none" viewBox="0 0 24 24">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" strokeWidth="2"></path>
+                                    <circle cx="12" cy="10" r="3" strokeWidth="2"></circle>
+                                </svg>
+                                <h3 className="text-lg mb-2" style={{ fontFamily: "'Montserrat', sans-serif", fontWeight: 600, color: '#6B5D52' }}>
+                                    Место
+                                </h3>
+                                <p className="text-xl mb-1" style={{ fontFamily: "'Playfair Display', serif", color: '#8B7D6B' }}>
+                                    Ресторан "Дом Палешука"
+                                </p>
+                                <p className="text-sm" style={{ fontFamily: "'Montserrat', sans-serif", color: '#A89885' }}>
+                                    аг. Лясковичи
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="rounded-lg overflow-hidden shadow-xl" style={{ border: '3px solid #E8DFD0' }}>
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2434.123456789!2d28.123456!3d52.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTLCsDA3JzI0LjQiTiAyOMKwMDcnMjQuNCJF!5e0!3m2!1sru!2sby!4v1234567890123!5m2!1sru!2sby"
+                                width="100%"
+                                height="400"
+                                style={{ border: 0 }}
+                                allowFullScreen
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                                title="Карта места проведения"
+                            ></iframe>
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        // Dress Code Component
+        function DressCode() {
+            const colors = [
+                { name: 'Бежевый', hex: '#E8D5B7' },
+                { name: 'Молочный', hex: '#F5F1E8' },
+                { name: 'Оливковый', hex: '#A8AE8C' },
+                { name: 'Пыльно-розовый', hex: '#D4A5A5' },
+                { name: 'Коричневый', hex: '#8B7355' },
+                { name: 'Терракотовый', hex: '#C17B5B' }
+            ];
+
+            return (
+                <section className="py-16 md:py-24 bg-[#F5F1E8]">
+                    <div className="max-w-6xl mx-auto px-4">
+                        <h2 className="text-center mb-4 text-3xl md:text-4xl" style={{ fontFamily: "'Playfair Display', serif", color: '#6B5D52' }}>
+                            Дресс-код
+                        </h2>
+                        
+                        <p className="text-center mb-12 text-base md:text-lg" style={{ fontFamily: "'Montserrat', sans-serif", color: '#8B7D6B' }}>
+                            Мы будем рады, если вы поддержите цветовую гамму нашей свадьбы
+                        </p>
+
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 md:gap-8">
+                            {colors.map((color, index) => (
+                                <div key={index} className="flex flex-col items-center">
+                                    <div
+                                        className="w-20 h-20 md:w-24 md:h-24 rounded-full mb-3 shadow-lg"
+                                        style={{
+                                            backgroundColor: color.hex,
+                                            border: '3px solid white',
+                                            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(107, 93, 82, 0.1)'
+                                        }}
+                                    ></div>
+                                    <p className="text-xs md:text-sm text-center" style={{ fontFamily: "'Montserrat', sans-serif", color: '#6B5D52' }}>
+                                        {color.name}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        }
+
+        // RSVP Form Component
+        function RSVPForm() {
+            const [formData, setFormData] = useState({
+                name: '',
+                attending: '',
+                withFamily: '',
+                guestCount: '',
+                alcoholPreferences: [],
+                wishes: ''
+            });
+            
+            const [errors, setErrors] = useState({ name: false });
+            const [submitted, setSubmitted] = useState(false);
+
+            const alcoholOptions = [
+                'Красное вино',
+                'Белое вино',
+                'Шампанское',
+                'Виски',
+                'Водка',
+                'Не пью'
+            ];
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                
+                if (!formData.name.trim()) {
+                    setErrors({ name: true });
+                    return;
+                }
+
+                console.log('Form submitted:', formData);
+                setSubmitted(true);
+            };
+
+            const toggleAlcoholPreference = (option) => {
+                setFormData(prev => ({
+                    ...prev,
+                    alcoholPreferences: prev.alcoholPreferences.includes(option)
+                        ? prev.alcoholPreferences.filter(item => item !== option)
+                        : [...prev.alcoholPreferences, option]
+                }));
+            };
+
+            if (submitted) {
+                return (
+                    <section id="rsvp" className="py-16 md:py-24 bg-white">
+                        <div className="max-w-2xl mx-auto px-4">
+                            <div className="text-center p-8 md:p-12 bg-[#F5F1E8] rounded-lg shadow-lg animate-fade-in">
+                                <svg className="w-16 h-16 mx-auto mb-6" fill="none" stroke="#7BA05B" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <h2 className="text-2xl md:text-3xl mb-4" style={{ fontFamily: "'Playfair Display', serif", color: '#6B5D52' }}>
+                                    Спасибо!
+                                </h2>
+                                <p className="text-base md:text-lg" style={{ fontFamily: "'Montserrat', sans-serif", color: '#8B7D6B' }}>
+                                    Мы получили ваш ответ и будем рады видеть вас на нашей свадьбе.
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+                );
+            }
+
+            return (
+                <section id="rsvp" className="py-16 md:py-24 bg-white">
+                    <div className="max-w-2xl mx-auto px-4">
+                        <div className="text-center mb-12">
+                            <svg className="w-12 h-12 mx-auto mb-4" fill="#D4A574" viewBox="0 0 24 24">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                            </svg>
+                            <h2 className="text-3xl md:text-4xl mb-4" style={{ fontFamily: "'Playfair Display', serif", color: '#6B5D52' }}>
+                                Пожалуйста, подтвердите ваше присутствие
+                            </h2>
+                        </div>
+
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            <div>
+                                <label htmlFor="name" className="text-base mb-2 block" style={{ fontFamily: "'Montserrat', sans-serif", color: '#6B5D52' }}>
+                                    Имя и фамилия *
+                                </label>
+                                <input
+                                    id="name"
+                                    type="text"
+                                    value={formData.name}
+                                    onChange={(e) => {
+                                        setFormData({ ...formData, name: e.target.value });
+                                        setErrors({ name: false });
+                                    }}
+                                    className={errors.name ? 'error' : ''}
+                                />
+                                {errors.name && (
+                                    <p className="text-red-500 text-sm mt-1">Пожалуйста, укажите имя и фамилию</p>
+                                )}
+                            </div>
+
+                            <div>
+                                <label className="text-base mb-3 block" style={{ fontFamily: "'Montserrat', sans-serif", color: '#6B5D52' }}>
+                                    Приду или не приду *
+                                </label>
+                                <div className="radio-item">
+                                    <input
+                                        type="radio"
+                                        id="yes"
+                                        name="attending"
+                                        value="yes"
+                                        checked={formData.attending === 'yes'}
+                                        onChange={(e) => setFormData({ ...formData, attending: e.target.value })}
+                                    />
+                                    <label htmlFor="yes">Приду</label>
+                                </div>
+                                <div className="radio-item">
+                                    <input
+                                        type="radio"
+                                        id="no"
+                                        name="attending"
+                                        value="no"
+                                        checked={formData.attending === 'no'}
+                                        onChange={(e) => setFormData({ ...formData, attending: e.target.value })}
+                                    />
+                                    <label htmlFor="no">К сожалению, не смогу прийти</label>
+                                </div>
+                            </div>
+
+                            {formData.attending === 'yes' && (
+                                <div className="space-y-6 animate-fade-in">
+                                    <div>
+                                        <label className="text-base mb-3 block" style={{ fontFamily: "'Montserrat', sans-serif", color: '#6B5D52' }}>
+                                            Вы придете один или с семьей?
+                                        </label>
+                                        <div className="radio-item">
+                                            <input
+                                                type="radio"
+                                                id="alone"
+                                                name="withFamily"
+                                                value="alone"
+                                                checked={formData.withFamily === 'alone'}
+                                                onChange={(e) => setFormData({ ...formData, withFamily: e.target.value })}
+                                            />
+                                            <label htmlFor="alone">Один / одна</label>
+                                        </div>
+                                        <div className="radio-item">
+                                            <input
+                                                type="radio"
+                                                id="family"
+                                                name="withFamily"
+                                                value="family"
+                                                checked={formData.withFamily === 'family'}
+                                                onChange={(e) => setFormData({ ...formData, withFamily: e.target.value })}
+                                            />
+                                            <label htmlFor="family">С семьей</label>
+                                        </div>
+                                    </div>
+
+                                    {formData.withFamily === 'family' && (
+                                        <div className="animate-fade-in">
+                                            <label htmlFor="guestCount" className="text-base mb-2 block" style={{ fontFamily: "'Montserrat', sans-serif", color: '#6B5D52' }}>
+                                                Сколько человек будет присутствовать?
+                                            </label>
+                                            <input
+                                                id="guestCount"
+                                                type="number"
+                                                min="1"
+                                                value={formData.guestCount}
+                                                onChange={(e) => setFormData({ ...formData, guestCount: e.target.value })}
+                                            />
+                                        </div>
+                                    )}
+
+                                    <div>
+                                        <label className="text-base mb-3 block" style={{ fontFamily: "'Montserrat', sans-serif", color: '#6B5D52' }}>
+                                            Какой алкоголь вы предпочитаете?
+                                        </label>
+                                        <div className="space-y-2">
+                                            {alcoholOptions.map((option) => (
+                                                <div key={option} className="checkbox-item">
+                                                    <input
+                                                        type="checkbox"
+                                                        id={option}
+                                                        checked={formData.alcoholPreferences.includes(option)}
+                                                        onChange={() => toggleAlcoholPreference(option)}
+                                                    />
+                                                    <label htmlFor={option}>{option}</label>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor="wishes" className="text-base mb-2 block" style={{ fontFamily: "'Montserrat', sans-serif", color: '#6B5D52' }}>
+                                            Пожелание молодоженам
+                                        </label>
+                                        <textarea
+                                            id="wishes"
+                                            value={formData.wishes}
+                                            onChange={(e) => setFormData({ ...formData, wishes: e.target.value })}
+                                            rows="4"
+                                            placeholder="Ваши пожелания..."
+                                        ></textarea>
+                                    </div>
+                                </div>
+                            )}
+
+                            <button type="submit" className="btn-primary w-full hover-scale">
+                                ОТПРАВИТЬ ОТВЕТ
+                            </button>
+                        </form>
+                    </div>
+                </section>
+            );
+        }
+
+        // Main App Component
+        function App() {
+            const rsvpRef = useRef(null);
+
+            const scrollToRSVP = () => {
+                rsvpRef.current?.scrollIntoView({ behavior: 'smooth' });
+            };
+
+            return (
+                <div className="min-h-screen">
+                    <HeroSection onRSVPClick={scrollToRSVP} />
+                    <CountdownTimer />
+                    <EventInfo />
+                    <DressCode />
+                    <div ref={rsvpRef}>
+                        <RSVPForm />
+                    </div>
+                    
+                    <footer className="py-8 bg-[#6B5D52] text-center">
+                        <p className="text-white text-sm" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                            С любовью, Валерия & Стас ♥
+                        </p>
+                    </footer>
+                </div>
+            );
+        }
+
+        // Render the app
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
